@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YearCraft</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding-top: 45px;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);/* Light blue gradient */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: #333;
+            user-select: none;
+        }
+
+        h1, h2 {
+            color: #1e3a8a; /* Dark blue for headings */
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        /* About Us Container */
+        .about-container {
+            width: 90%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .about-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Team Section */
+        .team {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .team-member {
+            background: #f0f4f8;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .team-member h3 {
+            margin: 0;
+            font-size: 20px;
+            color: #1e3a8a;
+            font-weight: 600;
+        }
+
+        .team-member p {
+            margin: 10px 0 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Contact Section */
+        .contact {
+            margin-top: 30px;
+            text-align: center;
+        }
+        a {
+            color: #1e6091;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .contact a {
+            color: #1e6091;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        a:hover {
+            color: #184e77;
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+        }
+
+        footer a {
+            color: #1e6091;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #184e77;
+        }
+    </style>
+</head>
+<body>
+    <div class="about-container">
+        <h1>About Us</h1>
+        <p>Welcome to <strong>YearCraft</strong>, your go-to platform for creating beautiful and personalized yearbooks. Our mission is to help you preserve your memories in a creative and meaningful way. Whether it's for school, college, or personal milestones, YearCraft makes it easy to design and share your yearbook with loved ones.</p>
+
+        <h2>Meet the Team</h2>
+        <div class="team">
+            <div class="team-member">
+                <h3>Amulya Karwa</h3>
+                <p>Founder & Developer</p>
+                <p><a href="mailto:amulyakarwa185@gmail.com">amulyakarwa185@gmail.com</a></p>
+            </div>
+            <div class="team-member">
+                <h3>Kshitij Lohiya</h3>
+                <p>Founder & Developer</p>
+                <p><a href="mailto:kshitijlohiya6@gmail.com">kshitijlohiya6@gmail.com</a></p>
+            </div>
+            <div class="team-member">
+                <h3>Vivan Agrawal</h3>
+                <p>Founder & Developer</p>
+                <p><a href="mailto:vivanagrawal2569@gmail.com">vivanagrawal2569@gmail.com</a></p>
+            </div>
+        </div>
+
+        <div class="contact">
+            <h2>Contact Us</h2>
+            <p>Have questions or feedback? Feel free to reach out to us at <a href="mailto:amulyakarwa185@gmail.com">amulyakarwa185@gmail.com</a>.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 <strong>YearCraft</strong>. All rights reserved.</p>
+    </footer>
+</body>
+</html>

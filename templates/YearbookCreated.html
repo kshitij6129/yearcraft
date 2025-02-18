@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yearcraft</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh
+        }
+
+        /* Container Styling */
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+        }
+
+        /* Success Icon */
+        .icon {
+            font-size: 50px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        /* Title Styling */
+        h1 {
+            margin: 0;
+            color: #0078d4;
+            font-size: 24px;
+        }
+
+        /* Description Styling */
+        p {
+            font-size: 16px;
+            color: #555;
+            margin: 10px 0 30px;
+        }
+
+        /* Button Styling */
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            margin: 5px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #0078d4;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #005bb5;
+        }
+
+        .btn-secondary {
+            background-color: #555;
+        }
+
+        .btn-secondary:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">🎉</div>
+        <h1>Yearbook Created Successfully!</h1>
+        <p>Your yearbook has been created. You can now view it or create another one.</p>
+        <a href="/welcome2" class="btn">Go to Home</a>
+        <a href="/create_yearbook" class="btn btn-secondary">Create Another Yearbook</a>
+        <a href="/view_yearbook" class="btn btn-secondary">View Yearbooks</a>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const pdfPath = "{{ pdf_path }}";
+            if (pdfPath) {
+                const link = document.createElement('a')
+                link.href = `/download/yearbook.pdf`;
+                link.download = 'yearbook.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+    </script>
+</body>
+</html>

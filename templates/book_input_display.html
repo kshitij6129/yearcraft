@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yearcraft</title>    
+</head>
+<style>
+   /* General Styles */
+   body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background:  linear-gradient(135deg, #6a11cb, #2575fc);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: auto;
+            color: #333;
+        }
+
+        h2, h4 {
+            color: #1e3a8a;
+        }
+
+        /* Form Container */
+        .form-container {
+            width: 90%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #1e3a8a;
+            font-weight: 600;
+        }
+
+        /* File Upload Section */
+        .file-upload {
+            margin-bottom: 20px;
+        }
+
+        .file-upload h4 {
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #1e3a8a;
+            font-weight: 500;
+        }
+
+        .file-upload input[type="file"] {
+            display: none; /* Hide the default file input */
+        }
+
+        .file-upload label {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #1e6091;
+            color: white;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .file-upload label:hover {
+            background: #184e77;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .file-upload label:active {
+            transform: translateY(0);
+        }
+
+        .file-upload textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 80px;
+            margin-top: 10px;
+            background: #f9f9f9;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .file-upload textarea:focus {
+            border-color: #1e6091;
+            box-shadow: 0 0 8px rgba(30, 96, 145, 0.3);
+            outline: none;
+        }
+
+        /* Buttons */
+        button {
+            padding: 12px 24px;
+            margin: 5px;
+            cursor: pointer;
+            border: none;
+            background: #1e6091;
+            color: white;
+            font-size: 16px;
+            border-radius: 8px;
+            transition: background 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background: #184e77;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+
+</style>
+<body>
+    <div class="form-container">
+        <h2>Upload Your Memories</h2>
+        <form id="memoryForm">
+            <div id="monthsForm"></div>
+            <div id="Submit"><button type="submit">Submit</button></div>
+        </form>
+    </div>
+    <script>
+
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const monthsForm = document.getElementById("monthsForm");
+        let memories = {};
+
+        // Generate form fields for each month
+        months.forEach(month => {
+            monthsForm.innerHTML += `
+                <div class="file-upload">
+                    <h4>${month} Highlights</h4>
+                    <label for="photos_${month}">Upload Photos</label>
+                    <input type="file" name="photos_${month}" id="photos_${month}" multiple>
+                    <div id="textboxes_${month}"></div>
+                </div>
+            `;
+            memories[month] = { texts: [], images: [] };
+        });
+
+        // Add event listener to file inputs to generate text boxes dynamically
+        months.forEach(month => {
+            const fileInput = document.querySelector(`[name='photos_${month}']`);
+            fileInput.addEventListener("change", function () {
+                const textboxesDiv = document.getElementById(`textboxes_${month}`);
+                textboxesDiv.innerHTML = ""; // Clear previous text boxes
+                Array.from(fileInput.files).forEach((file, index) => {
+                    textboxesDiv.innerHTML += `
+                        <textarea name="highlights_${month}_${index}" rows="2" placeholder="Enter description for ${file.name}"></textarea>
+                    `;
+                });
+            });
+        });
+
+         document.getElementById("memoryForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+        let memories = {};
+        
+        months.forEach(month => {
+            const files = document.querySelector(`[name='photos_${month}']`).files;
+            memories[month] = { texts: [], images: [] };
+
+            Array.from(files).forEach((file, index) => {
+                const text = document.querySelector(`[name='highlights_${month}_${index}']`).value;
+                memories[month].texts.push(text);
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    memories[month].images.push(e.target.result);
+                    localStorage.setItem("memories", JSON.stringify(memories));
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        // Redirect to the book page
+        setTimeout(() => {
+            location.href = "/book";
+        }, 1000);
+    });
+
+        // Display book content
+        let currentMonthIndex = 0;
+        function displayBook() {
+            if (currentMonthIndex >= months.length) return;
+            let month = months[currentMonthIndex];
+            const leftPage = document.getElementById("leftPage");
+            const rightPage = document.getElementById("rightPage");
+
+            leftPage.innerHTML = `<h2>${month} Memories</h2>`;
+            rightPage.innerHTML = "";
+
+            memories[month].images.forEach((imgSrc, index) => {
+                leftPage.innerHTML += `<p><strong>Photo ${index + 1}:</strong> ${memories[month].texts[index]}</p>`;
+                rightPage.innerHTML += `<img src="${imgSrc}" alt="${month} Photo ${index + 1}">`;
+            });
+        }
+
+        // Navigation buttons
+        document.getElementById("prevBtn").addEventListener("click", function () {
+            if (currentMonthIndex > 0) {
+                currentMonthIndex--;
+                displayBook();
+            }
+        });
+
+        document.getElementById("nextBtn").addEventListener("click", function () {
+            if (currentMonthIndex < months.length - 1) {
+                currentMonthIndex++;
+                displayBook();
+            }
+        });
+    </script>
+</body>
+</html>
